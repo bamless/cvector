@@ -1,7 +1,8 @@
 # cvector
 ![test](https://github.com/bamless/cvector/workflows/test/badge.svg)
 
-This is a dynamic growable array implementation that makes an effort to mimic the C++ `std::vector` interface. The vector uses `void*` to store data internally, sacrificing type safety in order to
+This is a dynamic growable array implementation that makes an effort to mimic the C++ `std::vector` 
+interface. The vector uses `void*` to store data internally, sacrificing type safety in order to
 make it possible to store data of any type.
 
 ## How to use
@@ -33,7 +34,7 @@ int main() {
 }
 ```
 
-The interace tries to emulate copy/move constructors and assignments using functions:
+The interface tries to emulate copy/move constructors and assignments using functions:
 
 ```c
 #include "vector.h"
@@ -47,7 +48,7 @@ int main() {
     // 'Copy constructor', copies the contents of `vec` into `vecCpy`
     Vector vecCpy = vecCopy(&vec);
 
-    // Copy assignments works similarly, but operates on a vector already 
+    // Copy assignments work similarly, but operate on a vector that is already 
     // initialized, freeing its element before copying the other vector's data
     Vector vec2 = vecNew(sizeof(int));
    
@@ -57,7 +58,7 @@ int main() {
     vecCopyAssign(&vec2, &vec);
 
     // Move the contents of `vec` into `vecMov`. Now `vec` is in
-    // an 'uninitialized state' and shouldn't be sued anymore
+    // an 'uninitialized state' and shouldn't be used anymore
     Vector vecMov = vecMove(&vec);
 
     // Move assignment
@@ -72,10 +73,10 @@ int main() {
 
 Beware that assignment 'operators' should be used only on previously initialized vectors, else 
 undefined behaviour is invoked. A vector is initialized after a call to `vecNew` or `vecInit` and
-unninitialized after the corresponding `vecFree` call. You can even query the vector's state
+uninitialized after the corresponding `vecFree` call. You can even query the vector's state
 using the `vecIsInitialized(Vector *vec)` function.
 
-Iterators are also supported in the form of a pointer to the underlying data:
+Iterators are also supported in the form of pointers to the underlying data:
 ```c
 #include "vector.h"
 
@@ -92,7 +93,7 @@ int main() {
     // A pointer to the fifth element of the vector
     int* iterator = vecIterator(&vec, 5);
 
-    // You can even retrieve an index from an iterator
+    // You can retrieve an index from an iterator
     size_t index = vecIteratorIndex(&vec, iterator);
 
     // You can then iterate over the vector like this:
@@ -114,7 +115,7 @@ You can simply copy `vector.h` and `vector.c` inside your project and you're don
 ## Compilation
 
 A simple Makefile is provided for building a static library if you prefer linking instead of copying 
-the files in your project. Simply input this in the terminal:
+the files in your project. Simply type this in the terminal:
 
 `make config=Release cvector`
 
