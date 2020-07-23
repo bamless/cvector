@@ -1,4 +1,5 @@
 # cvector
+![test](https://github.com/bamless/cvector/workflows/test/badge.svg)
 
 This is a dynamic growable array implementation that makes an effort to mimic the C++ `std::vector` interface. The vector uses `void*` to store data internally, sacrificing type safety in order to
 make it possible to store data of any type.
