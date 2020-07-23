@@ -9,5 +9,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: build
       run: make config=Release
-    - name: upload binaries
+    - name: run tests
       run: make config=Release run_test
