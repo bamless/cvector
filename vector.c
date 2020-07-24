@@ -55,13 +55,13 @@ Vector vecCopy(const Vector* vec) {
     return copy;
 }
 
-void vecCopyAssign(Vector* src, const Vector* dest) {
-    assert(vecIsInitialized(src));
-    if(src->data) free(src->data);
-    vecInit(src, dest->elemSize);
-    vecReserve(src, dest->size);
-    memcpy(src->data, dest->data, dest->size * dest->elemSize);
-    src->size = dest->size;
+void vecCopyAssign(Vector* dest, const Vector* src) {
+    assert(vecIsInitialized(dest));
+    if(dest->data) free(dest->data);
+    vecInit(dest, src->elemSize);
+    vecReserve(dest, src->size);
+    memcpy(dest->data, src->data, src->size * src->elemSize);
+    dest->size = src->size;
 }
 
 Vector vecMove(Vector* vec) {
