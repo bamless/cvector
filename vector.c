@@ -143,7 +143,7 @@ void* vecInsert(Vector* vec, size_t i, void* elem) {
 }
 
 void* vecErase(Vector* vec, size_t i) {
-    assert(i <= vec->size);
+    assert(i < vec->size);
     size_t shiftLeft = (vec->size - i - 1) * vec->elemSize;
     void* removeIt = offset(vec, i);
     memmove(removeIt, offset(vec, i + 1), shiftLeft);
