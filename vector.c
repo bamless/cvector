@@ -96,7 +96,7 @@ void* vecData(Vector* vec) {
     return vec->data;
 }
 
-const void* vecConstData(Vector* vec) {
+const void* vecConstData(const Vector* vec) {
     return vec->data;
 }
 

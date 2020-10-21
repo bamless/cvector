@@ -36,7 +36,7 @@ void vecFree(Vector* vec);
 void* vecGet(Vector* vec, size_t i);
 const void* vecConstGet(const Vector* vec, size_t i);
 void* vecData(Vector* vec);
-const void* vecConstData(Vector* vec);
+const void* vecConstData(const Vector* vec);
 void* vecFront(Vector* vec);
 const void* vecConstFront(const Vector* vec);
 void* vecBack(Vector* vec);
