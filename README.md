@@ -52,7 +52,7 @@ int main() {
     // initialized, freeing its element before copying the other vector's data
     Vector vec2 = vecNew(sizeof(int));
    
-    // ... Optionally fill the vector ...
+    // [...]
 
     // Copy the the contents of `vec` into `vec2`, releasing `vec2` data
     vecCopyAssign(&vec2, &vec);
@@ -64,7 +64,7 @@ int main() {
     // Move assignment
     Vector vec3 = vecNew(sizeof(int));
     
-    // ... Optionally fill the vector ...
+    // [...]
 
     // Similar to the above, but releases `vec3` data
     vecMoveAssign(&vec3, &vec);
@@ -82,7 +82,8 @@ Iterators are also supported in the form of pointers to the underlying data:
 
 int main() {
     Vector vec = vecNew(sizeof(int));
-    // ... Fill the vector ... 
+    
+    // [...]
 
     // A pointer to the first element of the vector
     int* iteratorToStart = vecBegin(&vec);
