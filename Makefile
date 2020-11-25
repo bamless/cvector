@@ -1,8 +1,6 @@
-ifndef config
-	config=Release
-endif
+config ?= Release
 	
-LIB_SOURCES  = vector.c
+CVECTOR_SOURCES  = vector.c
 TEST_SOURCES = test/test.c
 
 BUILD_DIR = build/$(config)
@@ -11,8 +9,8 @@ LIB_DIR   = $(BUILD_DIR)/lib
 
 # ---- Targets ----
 
-TEST = $(BIN_DIR)/test
-LIB  = $(LIB_DIR)/libcvector.a
+CVECTOR_TARGET = $(LIB_DIR)/libcvector.a
+TEST_TARGET = $(BIN_DIR)/test
 
 # ---- Compiler flags ----
 
@@ -24,32 +22,31 @@ endif
 
 # ---- Rules ----
 
-LIB_OBJECTS = $(LIB_SOURCES:%.c=$(BUILD_DIR)/%.o)
-LIB_DEPEND  = $(LIB_OBJECTS:.o=.d)
+CVECTOR_OBJECTS = $(CVECTOR_SOURCES:%.c=$(BUILD_DIR)/%.o)
+CVECTOR_DEPEND  = $(CVECTOR_OBJECTS:.o=.d)
 
 TEST_OBJECTS   = $(TEST_SOURCES:%.c=$(BUILD_DIR)/%.o)
-TEST_DEPEND    = $(TEST_OBJECTS:.o=.d)
-TEST_BUILD_DIR = $(dir $(TEST_OBJECTS)) 
-
-
-.PHONY:
-all: $(LIB) $(TEST)
+TEST_DEPEND    = $(TEST_OBJECTS:%.o=$(BUILD_DIR)/%.d)
+TEST_BUILD_DIR = $(dir $(TEST_OBJECTS))
 
 .PHONY:
-cvector: $(LIB)
+all: $(CVECTOR_TARGET) $(TEST_TARGET)
 
 .PHONY:
-test: $(TEST)
+cvector: $(CVECTOR_TARGET)
 
 .PHONY:
-run_test: $(TEST)
+test: $(TEST_TARGET)
+
+.PHONY:
+run_test: $(TEST_TARGET)
 	@$(BIN_DIR)/test
 
-$(TEST): $(TEST_OBJECTS) $(LIB) | $(BIN_DIR)
+$(TEST_TARGET): $(TEST_OBJECTS) $(CVECTOR_TARGET) | $(BIN_DIR)
 	@echo "Linking $@"
-	@$(CC) $(TEST_OBJECTS) -o $@ -Wl,$(LIB)
+	@$(CC) $(TEST_OBJECTS) -o $@ -Wl,$(CVECTOR_TARGET)
 
-$(LIB): $(LIB_OBJECTS) | $(LIB_DIR)
+$(CVECTOR_TARGET): $(CVECTOR_OBJECTS) | $(LIB_DIR)
 	@echo "Creating $@"
 	@$(AR) rcs $@ $^
 
@@ -57,7 +54,7 @@ $(BUILD_DIR)/%.o:%.c | $(BUILD_DIR)
 	@echo "[$(CC)] Compiling $< -> $@"
 	@$(CC) $(CFLAGS) -I./ -MP -MMD -c $< -o $@
 
--include $(LIB_DEPEND)
+-include $(CVECTOR_DEPEND)
 -include $(TEST_DEPEND)
 
 $(BIN_DIR):
